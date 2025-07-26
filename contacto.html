@@ -2,42 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Contacto - Estilo Único</title>
+  <title>Contacto - Aura Moda</title>
   <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
   <header>
-    <h1>Contacto</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="categorias.html">Categorías</a></li>
-        <li><a href="historia.html">Nuestra Historia</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-      </ul>
+    <div class="logo">AURA MODA</div>
+    <nav class="menu-top">
+      <a href="categorias.html">CATEGORÍAS</a>
+      <a href="historia.html">NUESTRA HISTORIA</a>
+      <a href="Ofertas.html">OFERTAS</a>
+      <a href="contacto.html">CONTACTO</a>
     </nav>
   </header>
 
-  <main>
-    <section>
-      <h2>Envíanos tu mensaje</h2>
-      <form>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+  <main class="contenedor-categorias">
+    <h2>Contáctanos</h2>
+    <p>¿Tienes alguna pregunta o comentario? Estamos aquí para ayudarte.</p>
 
-        <label for="email">Correo:</label>
-        <input type="email" id="email" name="email" required>
+    <form action="#" method="post" class="formulario-contacto">
+      <label for="nombre">Nombre:</label><br>
+      <input type="text" id="nombre" name="nombre" required><br><br>
 
-        <label for="mensaje">Mensaje:</label>
-        <textarea id="mensaje" name="mensaje" rows="5"></textarea>
+      <label for="email">Correo electrónico:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
 
-        <button type="submit">Enviar</button>
-      </form>
-    </section>
+      <label for="mensaje">Mensaje:</label><br>
+      <textarea id="mensaje" name="mensaje" rows="5" required></textarea><br><br>
+
+      <button type="submit">Enviar Mensaje</button>
+    </form>
   </main>
 
   <footer>
-    <p>&copy; 2025 Estilo Único</p>
+    <p>&copy; 2025 Aura Moda</p>
   </footer>
 </body>
 </html>
