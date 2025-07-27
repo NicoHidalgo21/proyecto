@@ -1,9 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Nuestra Historia - Aura Moda</title>
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="estilos.css" />
+  <style>
+    /* Estilos específicos para esta página */
+
+    .contenedor-historia {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .historia-contenido {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap; /* Para que se apilen en pantallas pequeñas */
+    }
+
+    .historia-contenido img {
+      max-width: 400px;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .historia-texto {
+      flex: 1;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    @media (max-width: 700px) {
+      .historia-contenido {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .historia-texto {
+        font-size: 1rem;
+      }
+
+      .historia-contenido img {
+        max-width: 90%;
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -16,24 +62,29 @@
     </nav>
   </header>
 
-  <main class="contenedor-categorias">
+  <main class="contenedor-historia">
     <h2>Nuestra Historia</h2>
-    <p>
-      <strong>Aura Moda</strong> nació con la visión de empoderar a cada persona a través del estilo y la autenticidad.
-      Fundada en 2020 por un equipo apasionado por la moda, comenzamos como una pequeña tienda local y, gracias a la confianza de nuestros clientes, hoy somos una marca reconocida por ofrecer ropa y accesorios que combinan elegancia, comodidad y personalidad.
-    </p>
+    <div class="historia-contenido">
+      <img src="img/INICIOS.jpg" alt="Nuestra Historia" />
+      <div class="historia-texto">
+        <p>
+          <strong>Aura Moda</strong> nació con la visión de empoderar a cada persona a través del estilo y la autenticidad.
+          Fundada en 2020 por un equipo apasionado por la moda, comenzamos como una pequeña tienda local y, gracias a la confianza de nuestros clientes, hoy somos una marca reconocida por ofrecer ropa y accesorios que combinan elegancia, comodidad y personalidad.
+        </p>
 
-    <p>
-      Nuestro nombre proviene de la palabra “Aura”, que representa la energía única de cada individuo. Creemos que la moda debe reflejar esa esencia personal, no solo seguir tendencias.
-    </p>
+        <p>
+          Nuestro nombre proviene de la palabra “Aura”, que representa la energía única de cada individuo. Creemos que la moda debe reflejar esa esencia personal, no solo seguir tendencias.
+        </p>
 
-    <p>
-      En cada colección buscamos calidad, sostenibilidad y originalidad. Nuestro compromiso es ofrecer prendas que no solo vistan, sino que expresen lo que eres.
-    </p>
+        <p>
+          En cada colección buscamos calidad, sostenibilidad y originalidad. Nuestro compromiso es ofrecer prendas que no solo vistan, sino que expresen lo que eres.
+        </p>
 
-    <p>
-      ¡Gracias por formar parte de esta historia contigo!
-    </p>
+        <p>
+          ¡Gracias por formar parte de esta historia contigo!
+        </p>
+      </div>
+    </div>
   </main>
 
   <footer>

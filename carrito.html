@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carrito - Aura Moda</title>
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <header>
+    <h1 class="logo">AURA MODA</h1>
+    <nav class="menu-top">
+      <a href="categorias.html">Categorías</a>
+      <a href="index.html">Inicio</a>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h2>Carrito de compras</h2>
+
+      <a href="categorias.html" class="btn-volver">← Volver a categorías</a>
+
+      <table id="tablaCarrito">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Subtotal</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoCarrito"></tbody>
+      </table>
+
+      <p id="carritoVacio">Tu carrito está vacío.</p>
+
+      <div id="resumenCompra" style="display:none;">
+        <p><strong>Subtotal:</strong> $<span id="subtotal">0.00</span></p>
+        <p><strong>IVA (12%):</strong> $<span id="iva">0.00</span></p>
+        <p><strong>Total:</strong> $<span id="total">0.00</span></p>
+      </div>
+
+      <form id="formCompra" style="display:none;">
+        <h3>Datos del comprador</h3>
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" required />
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required />
+
+        <label for="pago">Forma de pago:</label>
+        <select id="pago" name="pago" required>
+          <option value="">Seleccione</option>
+          <option value="tarjeta">Tarjeta de crédito/débito</option>
+          <option value="efectivo">Efectivo</option>
+          <option value="paypal">PayPal</option>
+        </select>
+
+        <button type="submit" class="boton-confirmar">Confirmar compra</button>
+      </form>
+
+      <div id="mensajeGracias" style="display:none; margin-top: 20px; font-style: italic; color: #4caf50; text-align: center;"></div>
+    </section>
+  </main>
+
+  <script>
+    let carrito = JSON.parse(localStorage.getItem("carritoAuraModa")) || [];
+
+    const cuerpoCarrito = document.getElementById("cuerpoCarrito");
+    const carritoVacio = document.getElementById("carritoVacio");
+    const resumenCompra = document.getElementById("resumenCompra");
+    const subtotalSpan = document.getElementById("subtotal");
+    const ivaSpan = document.getElementById("iva");
+    const totalSpan = document.getElementById("total");
+    const formCompra = document.getElementById("formCompra");
+    const mensajeGracias = document.getElementById("mensajeGracias");
+
+    function guardarCarrito() {
+      localStorage.setItem("carritoAuraModa", JSON.stringify(carrito));
+    }
+
+    function calcularTotales() {
+      let subtotal = 0;
+      carrito.forEach(item => {
+        subtotal += item.precio * item.cantidad;
+      });
+      let iva = subtotal * 0.12;
+      let total = subtotal + iva;
+      subtotalSpan.textContent = subtotal.toFixed(2);
+      ivaSpan.textContent = iva.toFixed(2);
+      totalSpan.textContent = total.toFixed(2);
+    }
+
+    function mostrarCarrito() {
+      cuerpoCarrito.innerHTML = "";
+      if (carrito.length === 0) {
+        carritoVacio.style.display = "block";
+        resumenCompra.style.display = "none";
+        formCompra.style.display = "none";
+        mensajeGracias.style.display = "none";
+        return;
+      }
+      carritoVacio.style.display = "none";
+      resumenCompra.style.display = "block";
+      formCompra.style.display = "block";
+      mensajeGracias.style.display = "none";
+
+      carrito.forEach(item => {
+        const tr = document.createElement("tr");
+
+        const tdNombre = document.createElement("td");
+        tdNombre.textContent = item.nombre;
+        tr.appendChild(tdNombre);
+
+        const tdCantidad = document.createElement("td");
+        // Botón reducir cantidad
+        const btnMenos = document.createElement("button");
+        btnMenos.textContent = "−";
+        btnMenos.title = "Reducir cantidad";
+        btnMenos.onclick = () => {
+          if (item.cantidad > 1) {
+            item.cantidad--;
+          } else {
+            carrito = carrito.filter(p => p.id !== item.id);
+          }
+          guardarCarrito();
+          mostrarCarrito();
+          calcularTotales();
+        };
+        tdCantidad.appendChild(btnMenos);
+
+        // Mostrar cantidad
+        const spanCant = document.createElement("span");
+        spanCant.textContent = " " + item.cantidad + " ";
+        tdCantidad.appendChild(spanCant);
+
+        // Botón aumentar cantidad
+        const btnMas = document.createElement("button");
+        btnMas.textContent = "+";
+        btnMas.title = "Aumentar cantidad";
+        btnMas.onclick = () => {
+          item.cantidad++;
+          guardarCarrito();
+          mostrarCarrito();
+          calcularTotales();
+        };
+        tdCantidad.appendChild(btnMas);
+
+        tr.appendChild(tdCantidad);
+
+        const tdPrecio = document.createElement("td");
+        tdPrecio.textContent = "$" + item.precio.toFixed(2);
+        tr.appendChild(tdPrecio);
+
+        const tdSubtotal = document.createElement("td");
+        tdSubtotal.textContent = "$" + (item.precio * item.cantidad).toFixed(2);
+        tr.appendChild(tdSubtotal);
+
+        const tdAcciones = document.createElement("td");
+        const btnEliminar = document.createElement("button");
+        btnEliminar.textContent = "Eliminar";
+        btnEliminar.title = "Eliminar producto";
+        btnEliminar.onclick = () => {
+          carrito = carrito.filter(p => p.id !== item.id);
+          guardarCarrito();
+          mostrarCarrito();
+          calcularTotales();
+        };
+        tdAcciones.appendChild(btnEliminar);
+        tr.appendChild(tdAcciones);
+
+        cuerpoCarrito.appendChild(tr);
+      });
+
+      calcularTotales();
+    }
+
+    mostrarCarrito();
+
+    formCompra.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nombre = this.nombre.value.trim();
+      const direccion = this.direccion.value.trim();
+      const telefono = this.telefono.value.trim();
+      const pago = this.pago.value;
+
+      if (!nombre || !direccion || !telefono || !pago) {
+        alert("Por favor, completa todos los campos.");
+        return;
+      }
+
+      // Preparar datos para enviar
+      const datosCompra = {
+        nombre,
+        direccion,
+        telefono,
+        pago,
+        carrito: carrito
+      };
+
+      fetch("guardarCompra.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datosCompra)
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            mensajeGracias.style.display = "block";
+            mensajeGracias.textContent = `Gracias por tu compra, ${nombre}. ¡Te contactaremos pronto!`;
+            formCompra.style.display = "none";
+            resumenCompra.style.display = "none";
+
+            // Vaciar carrito local
+            carrito = [];
+            guardarCarrito();
+            mostrarCarrito();
+          } else {
+            alert("Error al guardar la compra. Intenta de nuevo.");
+          }
+        })
+        .catch(err => {
+          alert("Error de conexión con el servidor.");
+          console.error(err);
+        });
+    });
+  </script>
+</body>
+</html>

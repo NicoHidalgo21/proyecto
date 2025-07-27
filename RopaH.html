@@ -1,49 +1,97 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Ropa de Hombre - Estilo Único</title>
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
-    <h1>Ropa de Hombre</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="categorias.html">Categorías</a></li>
-      </ul>
+    <h1 class="logo">Estilo Único</h1>
+    <nav class="menu-top">
+      <a href="index.html">INICIO</a>
+      <a href="categorias.html">CATEGORIA</a>
+      <a href="carrito.html">CARRITO</a>
     </nav>
   </header>
 
   <main>
     <section>
-      <article>
-        <h2>Camisa Casual</h2>
-        <p>Camisa para toda ocasión.</p>
-        <p>Camisa de manga larga de algodón, perfecta para un look casual o semiformal. Disponible en varios colores.</p>
-        <p>Precio: $35.00</p>
-        <button>Añadir al carrito</button>
-      </article>
-      <article>
-        <h2>Jeans Slim Fit</h2>
-        <p>Pantalón moderno de corte ajustado.</p>
-        <p>Jeans azul oscuro con diseño moderno, elástico y resistente, ideal para uso diario.</p>
-        <p>Precio: $40.00</p>
-        <button>Añadir al carrito</button>
-      </article>
-      <article>
-        <h2>Chaqueta de Cuero</h2>
-        <p>Estilo y actitud en una prenda.</p>
-        <p>Chaqueta sintética tipo cuero con cierre frontal y bolsillos, excelente para el clima frío y lucir con personalidad.</p>
-        <p>Precio: $75.00</p>
-        <button>Añadir al carrito</button>
-      </article>
+      <h2>Ropa de Hombre</h2>
+
+      <article data-id="1" data-nombre="Camisa Casual" data-precio="35.00">
+  <h3>Camisa Casual</h3>
+  <img src="img/camisa.jpg" alt="Camisa Casual" />
+  <p><strong>Detalles rápidos:</strong> Camisa para toda ocasión.</p>
+  <p><strong>Información:</strong> Camisa de manga larga de algodón, perfecta para un look casual o semiformal. Disponible en varios colores.</p>
+  <p><strong>Precio:</strong> $35.00</p>
+  <label for="cantidad1">Cantidad:</label>
+  <input type="number" id="cantidad1" name="cantidad1" min="1" value="0" />
+  <button onclick="agregarAlCarrito(1, 'Camisa Casual', 35.00)">Añadir al carrito</button>
+</article>
+
+<article data-id="2" data-nombre="Jeans Slim Fit" data-precio="40.00">
+  <h3>Jeans Slim Fit</h3>
+  <img src="img/jeanh.jpg" alt="Jeans Slim Fit" />
+  <p><strong>Detalles rápidos:</strong> Pantalón moderno de corte ajustado.</p>
+  <p><strong>Información:</strong> Jeans azul oscuro con diseño moderno, elástico y resistente, ideal para uso diario.</p>
+  <p><strong>Precio:</strong> $40.00</p>
+  <label for="cantidad2">Cantidad:</label>
+  <input type="number" id="cantidad2" name="cantidad2" min="1" value="0" />
+  <button onclick="agregarAlCarrito(2, 'Jeans Slim Fit', 40.00)">Añadir al carrito</button>
+</article>
+
+<article data-id="3" data-nombre="Chaqueta de Cuero" data-precio="75.00">
+  <h3>Chaqueta de Cuero</h3>
+  <img src="img/chaqueta.jpg" alt="Chaqueta de Cuero" />
+  <p><strong>Detalles rápidos:</strong> Estilo y actitud en una prenda.</p>
+  <p><strong>Información:</strong> Chaqueta sintética tipo cuero con cierre frontal y bolsillos, excelente para el clima frío y lucir con personalidad.</p>
+  <p><strong>Precio:</strong> $75.00</p>
+  <label for="cantidad3">Cantidad:</label>
+  <input type="number" id="cantidad3" name="cantidad3" min="1" value="0" />
+  <button onclick="agregarAlCarrito(3, 'Chaqueta de Cuero', 75.00)">Añadir al carrito</button>
+</article>
+
+
+      <div id="mensajeExito" style="margin-top: 20px; font-style: italic; color: #4caf50;"></div>
+      <div style="margin-top: 15px;">
+        <a href="carrito.html" style="text-decoration:none; color: #111; font-weight: 600;">Ver mi compra</a>
+      </div>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Estilo Único</p>
   </footer>
+
+  <script>
+    function agregarAlCarrito(id, nombre, precio) {
+      let carrito = JSON.parse(localStorage.getItem("carritoAuraModa")) || [];
+      const cantidadInput = document.getElementById("cantidad" + id);
+      let cantidad = parseInt(cantidadInput?.value) || 0;
+
+      if (cantidad < 1) {
+        alert("La cantidad debe ser 1 o mayor.");
+        return;
+      }
+
+      const productoEnCarrito = carrito.find(p => p.id === id);
+
+      if (productoEnCarrito) {
+        productoEnCarrito.cantidad += cantidad;
+      } else {
+        carrito.push({ id, nombre, precio, cantidad });
+      }
+
+      localStorage.setItem("carritoAuraModa", JSON.stringify(carrito));
+
+      // Mostrar mensaje de éxito
+      const mensaje = document.getElementById("mensajeExito");
+      mensaje.textContent = `Producto "${nombre}" añadido al carrito con cantidad ${cantidad}.`;
+
+      // Reset cantidad a cero
+      cantidadInput.value = 0;
+    }
+  </script>
 </body>
 </html>

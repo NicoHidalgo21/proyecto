@@ -1,49 +1,96 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Accesorios - Estilo Único</title>
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
   <header>
-    <h1>Accesorios</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="categorias.html">Categorías</a></li>
-      </ul>
+    <h1 class="logo">Estilo Único</h1>
+    <nav class="menu-top">
+      <a href="index.html">INICIO</a>
+      <a href="categorias.html">CATEGORIA</a>
+      <a href="carrito.html">CARRITO</a>
     </nav>
   </header>
 
   <main>
     <section>
-      <article>
-        <h2>Bolso de Mano</h2>
-        <p>Bolso práctico y moderno.</p>
-        <p>Bolso pequeño de cuero sintético con cierre magnético, ideal para salidas informales o eventos.</p>
-        <p>Precio: $25.00</p>
-        <button>Añadir al carrito</button>
-      </article>
-      <article>
-        <h2>Reloj de Pulsera</h2>
-        <p>Elegancia en tu muñeca.</p>
-        <p>Reloj analógico con correa de acero inoxidable, resistente al agua y con diseño clásico.</p>
-        <p>Precio: $55.00</p>
-        <button>Añadir al carrito</button>
-      </article>
-      <article>
-        <h2>Gafas de Sol</h2>
-        <p>Protección y estilo.</p>
-        <p>Gafas polarizadas con marco ligero y moderno. Protección UV400 para el cuidado de tus ojos.</p>
-        <p>Precio: $19.90</p>
-        <button>Añadir al carrito</button>
-      </article>
+      <h2>Accesorios</h2>
+
+      <article data-id="1" data-nombre="Bolso de Mano" data-precio="25.00">
+  <h3>Bolso de Mano</h3>
+  <img src="img/bolso.jpg" alt="Bolso de Mano" />
+  <p><strong>Detalles rápidos:</strong> Bolso práctico y moderno.</p>
+  <p><strong>Información:</strong> Bolso pequeño de cuero sintético con cierre magnético, ideal para salidas informales o eventos elegantes.</p>
+  <p><strong>Precio:</strong> $25.00</p>
+  <label for="cantidad1">Cantidad:</label>
+  <input type="number" id="cantidad1" name="cantidad1" min="1" value="0" />
+  <button onclick="agregarAlCarrito(1, 'Bolso de Mano', 25.00)">Añadir al carrito</button>
+</article>
+
+<article data-id="2" data-nombre="Reloj de Pulsera" data-precio="55.00">
+  <h3>Reloj de Pulsera</h3>
+  <img src="img/reloj.jpg" alt="Reloj de Pulsera" />
+  <p><strong>Detalles rápidos:</strong> Elegancia en tu muñeca.</p>
+  <p><strong>Información:</strong> Reloj analógico con correa de acero inoxidable, resistente al agua y con diseño clásico ideal para cualquier ocasión.</p>
+  <p><strong>Precio:</strong> $55.00</p>
+  <label for="cantidad2">Cantidad:</label>
+  <input type="number" id="cantidad2" name="cantidad2" min="1" value="0" />
+  <button onclick="agregarAlCarrito(2, 'Reloj de Pulsera', 55.00)">Añadir al carrito</button>
+</article>
+
+<article data-id="3" data-nombre="Gafas de Sol" data-precio="19.90">
+  <h3>Gafas de Sol</h3>
+  <img src="img/gafas.jpg" alt="Gafas de Sol" />
+  <p><strong>Detalles rápidos:</strong> Protección y estilo.</p>
+  <p><strong>Información:</strong> Gafas polarizadas con marco ligero y moderno. Protección UV400 para el cuidado completo de tus ojos.</p>
+  <p><strong>Precio:</strong> $19.90</p>
+  <label for="cantidad3">Cantidad:</label>
+  <input type="number" id="cantidad3" name="cantidad3" min="1" value="0" />
+  <button onclick="agregarAlCarrito(3, 'Gafas de Sol', 19.90)">Añadir al carrito</button>
+</article>
+
+
+      <div id="mensajeExito" style="margin-top: 20px; font-style: italic; color: #4caf50;"></div>
+
+      <div style="margin-top: 15px;">
+        <a href="carrito.html" style="text-decoration:none; color: #111; font-weight: 600;">Ver mi compra</a>
+      </div>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Estilo Único</p>
   </footer>
+
+  <script>
+    function agregarAlCarrito(id, nombre, precio) {
+      let carrito = JSON.parse(localStorage.getItem("carritoAuraModa")) || [];
+      const cantidadInput = document.getElementById("cantidad" + id);
+      let cantidad = parseInt(cantidadInput?.value) || 0;
+
+      if (cantidad < 1) {
+        alert("La cantidad debe ser 1 o mayor.");
+        return;
+      }
+
+      const productoEnCarrito = carrito.find(p => p.id === id);
+
+      if (productoEnCarrito) {
+        productoEnCarrito.cantidad += cantidad;
+      } else {
+        carrito.push({ id, nombre, precio, cantidad });
+      }
+
+      localStorage.setItem("carritoAuraModa", JSON.stringify(carrito));
+
+      const mensaje = document.getElementById("mensajeExito");
+      mensaje.textContent = `Producto "${nombre}" añadido al carrito con cantidad ${cantidad}.`;
+
+      cantidadInput.value = 0;
+    }
+  </script>
 </body>
 </html>

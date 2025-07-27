@@ -1,148 +1,266 @@
-/* Reset básico */
-* {
+/* General */
+body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: #fefefe;
+  background-color: #fdfdfd;
   color: #333;
+  line-height: 1.6;
 }
 
-/* ENCABEZADO */
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+/* Encabezado */
 header {
+  background-color: #222;
+  color: white;
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 40px;
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  flex-wrap: wrap;
 }
 
 .logo {
-  font-size: 2.5rem;
-  font-weight: 500;
-  letter-spacing: 3px;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
+/* Navegación superior */
 .menu-top a {
-  margin-left: 25px;
+  color: white;
   text-decoration: none;
-  color: #111;
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
-  transition: border-bottom 0.3s;
+  margin: 0 1rem;
+  transition: color 0.3s ease;
 }
 
 .menu-top a:hover {
-  border-bottom: 2px solid #111;
+  color: #ffe7d6; /* naranja muy claro para hover */
 }
 
-
-/* HERO - Imagen principal */
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px auto;
-  max-width: 1000px;
-  text-align: center;
-}
-
-.hero img {
-  width: 100%;
-  max-height: 600px;
-  object-fit: cover;
-}
-
-.hero-texto {
-  margin-top: 20px;
-  font-size: 1.2rem;
-  font-style: italic;
-  color: #555;
-}
-
-/* CATEGORÍAS */
+/* Categorías */
 .contenedor-categorias {
-  max-width: 700px;
-  margin: 50px auto;
+  padding: 2rem;
   text-align: center;
 }
 
 .contenedor-categorias h2 {
   font-size: 1.8rem;
-  margin-bottom: 30px;
-  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
 }
 
 .contenedor-categorias ul {
   list-style: none;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 }
 
 .contenedor-categorias li {
-  margin-bottom: 15px;
+  background-color: #ffefd5; /* naranja pastel suave */
+  border-radius: 12px;
+  padding: 1.2rem 2rem;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  color: #333;
+  font-weight: 600;
+}
+
+.contenedor-categorias li:hover {
+  transform: scale(1.05);
+  background-color: #ffd8a8; /* naranja un poco más fuerte para hover */
 }
 
 .contenedor-categorias a {
   text-decoration: none;
-  font-size: 1.1rem;
-  color: #222;
-  transition: color 0.3s ease;
+  color: #333;
+  font-weight: bold;
 }
 
-.contenedor-categorias a:hover {
-  color: #b48c6e;
+/* Artículos de productos */
+main section,
+main article {
+  padding: 1.5rem;
 }
 
-/* PIE DE PÁGINA */
-footer {
+/* Centrar artículos y hacerlos responsivos */
+article {
+  background-color: #fff7e6; /* fondo suave naranja pastel */
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+
+  /* Nuevo: centramos el contenido dentro del artículo */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  padding: 30px;
-  background-color: #fafafa;
-  font-size: 0.9rem;
-  color: #777;
-  border-top: 1px solid #e0e0e0;
 }
-/* FORMULARIO DE CONTACTO */
+
+article:hover {
+  transform: scale(1.02);
+}
+
+/* Imágenes de producto centradas y responsivas */
+article img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  object-fit: cover;
+  /* Ya con display block y centrado en el flex del padre está bien */
+}
+
+/* Botones */
+button,
+.btnAñadir {
+  background-color: #ffd8a8; /* naranja pastel */
+  color: #333;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+button:hover,
+.btnAñadir:hover {
+  background-color: #ffb84d; /* naranja más intenso para hover */
+  color: #222;
+}
+
+/* Inputs */
+input[type="number"] {
+  padding: 0.4rem;
+  width: 60px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-right: 0.8rem;
+  /* Centramos input y botón juntos */
+  /* Los alineamos verticalmente */
+  vertical-align: middle;
+}
+
+/* Footer */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.hero-texto {
+  position: absolute;
+  text-align: center;
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px 40px;
+  border-radius: 10px;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 640px) {
+  article {
+    max-width: 90%;
+    padding: 1rem;
+  }
+
+  .contenedor-categorias ul {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .menu-top a {
+    margin: 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .hero-texto {
+    font-size: 1.8rem;
+    padding: 15px 25px;
+  }
+}
+
+/* Estilos para formulario de contacto */
 .formulario-contacto {
-  max-width: 500px;
-  margin: 30px auto;
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #fff7e6; /* fondo suave naranja pastel */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
   text-align: left;
 }
 
 .formulario-contacto label {
-  font-weight: bold;
-  font-size: 0.95rem;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #333;
 }
 
 .formulario-contacto input,
 .formulario-contacto textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
+  padding: 0.8rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
   font-family: inherit;
+  box-sizing: border-box;
+  background-color: #fffdf8;
+  transition: border-color 0.3s ease;
+}
+
+.formulario-contacto input:focus,
+.formulario-contacto textarea:focus {
+  outline: none;
+  border-color: #ffb84d;
+  box-shadow: 0 0 5px rgba(255, 184, 77, 0.4);
 }
 
 .formulario-contacto button {
-  background-color: #b48c6e;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 6px;
+  width: 100%;
+  padding: 0.9rem;
   font-size: 1rem;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.formulario-contacto button:hover {
-  background-color: #9e7156;
+  font-weight: bold;
 }

@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Categorías - Aura Moda</title>
-  <link rel="stylesheet" href="estilos.css">
+  <link rel="stylesheet" href="estilos.css" />
+  <script>
+    // Para actualizar dinámicamente el número de productos en la cesta
+    document.addEventListener("DOMContentLoaded", () => {
+      const cestaLink = document.getElementById("link-cesta");
+      const carrito = JSON.parse(localStorage.getItem("carritoAuraModa")) || [];
+      let totalCantidad = 0;
+      carrito.forEach(item => totalCantidad += item.cantidad);
+      cestaLink.textContent = `CESTA [${totalCantidad}]`;
+    });
+  </script>
 </head>
 <body>
   <header>
@@ -12,7 +22,6 @@
       <a href="index.html">INICIO</a>
       <a href="historia.html">NUESTRA HISTORIA</a>
       <a href="contacto.html">CONTACTO</a>
-      <a href="#">CESTA [0]</a>
     </nav>
   </header>
 
